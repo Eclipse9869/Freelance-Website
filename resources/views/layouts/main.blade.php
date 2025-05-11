@@ -128,7 +128,6 @@
         </a>
         <div class="d-flex align-items-center">
             <!-- <button class="btn btn-orange me-3">Open Recruitment</button> -->
-
             @if (Auth::check())
                 <!-- User Dropdown -->
                 <div class="dropdown">
@@ -143,7 +142,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                         <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Edit Profile</a></li>
-                        <li><a class="dropdown-item" href="{{ route('logout') }}">Bid History</a></li>
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">My Bid History</a></li>
                         <li><a class="dropdown-item" href="{{ route('dashboard-recruiter') }}">As Recruiter</a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
