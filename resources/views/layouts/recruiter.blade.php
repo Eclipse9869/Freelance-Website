@@ -7,8 +7,11 @@
     <title>myFreelance</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('css/project.css') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
@@ -167,7 +170,7 @@
 <body>
     <!-- Navbar -->
     <div class="navbar-custom d-flex justify-content-between align-items-center">
-        <a href="{{ route('dashboard') }}">
+        <a href="{{ route('dashboard-recruiter') }}">
             <!-- <span class="orange">my</span><span class="white-bold">Freelance</span> -->
             <div class="brand-wrapper position-relative">
                 <div class="brand">
@@ -177,7 +180,7 @@
             </div>
         </a>
         <div class="d-flex align-items-center">
-            <button class="btn btn-orange me-3">Open Recruitment</button>
+            <a href="{{ route('projects.create') }}" class="btn btn-orange me-3">Open Recruitment</a>
 
             @if (Auth::check())
                 <!-- User Dropdown -->
@@ -194,6 +197,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                         <!-- <li><a class="dropdown-item" href="{{ route('logout') }}">My Project</a></li> -->
                         <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ route('job') }}">All Job</a></li>
                         <li><a class="dropdown-item" href="{{ route('dashboard') }}">As Applicant</a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">

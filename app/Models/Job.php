@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Job extends Model
+{
+    use HasFactory;
+    protected $table = 'job';
+    protected $fillable = ['name', 'category','desc'];
+    // protected $guarded = [];
+    public function project()
+    {
+        return $this->belongsToMany(Project::class, 'job_has_project', 'job_id', 'project_id');
+    }
+}
