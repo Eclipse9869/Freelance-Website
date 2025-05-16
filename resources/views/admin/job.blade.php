@@ -1,10 +1,6 @@
 @extends('layouts.recruiter')
 @section('content')
 <div class="table-section">
-    <!-- <div class="breadcrumb">Home > All Job</div>
-    <div class="table-header">
-        <a href="{{ route('add-job') }}" class="add-btn">+ Add Job</a>
-    </div> -->
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -13,7 +9,8 @@
     <div class="table-container">
         <div class="breadcrumb">Home > All Job</div>
         <div class="table-header">
-            <a href="{{ route('add-job') }}" class="add-btn">+ Add Job</a>
+            <a href="{{ route('category-job') }}" class="add-btn me-2">Category</a>
+            <a href="{{ route('job.create') }}" class="add-btn">+ Add Job</a>
         </div>
         <table>
             <thead>
@@ -29,7 +26,7 @@
                 <tr>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->desc }}</td>
-                    <td>{{ $item->category }}</td>
+                    <td>{{ $item->category->name }}</td>
                     <td>
                         <a href="{{ route('job.edit', $item->id) }}" class="btn btn-sm btn-info">
                             <i class="fa-solid fa-pencil"></i>

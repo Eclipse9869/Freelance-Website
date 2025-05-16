@@ -15,25 +15,12 @@
         <textarea id="desc" name="desc">{{ old('desc', $job->desc ?? '') }}</textarea>
 
         <label for="category">Category :</label>
-        @php
-            $categories = [
-                'Development & IT',
-                'AI Services',
-                'Design & Creative',
-                'Sales & Marketing',
-                'Admin & Customer Support',
-                'Writing & Translation',
-                'Finance & Accounting',
-                'Engineering & Architecture',
-                'Legal',
-                'HR & Training'
-            ];
-            $selectedCategory = old('category', $job->category ?? '');
-        @endphp
         <select id="category" name="category">
             <option value="">-- Choose Category --</option>
-            @foreach($categories as $cat)
-                <option value="{{ $cat }}" {{ $selectedCategory == $cat ? 'selected' : '' }}>{{ $cat }}</option>
+            @foreach($category as $cat)
+                <option value="{{ $cat->id }}" {{ (old('category', $job->category_job_id ?? '') == $cat->id) ? 'selected' : '' }}>
+                    {{ $cat->name }}
+                </option>
             @endforeach
         </select>
         <button type="submit" class="submit-btn">{{ isset($job) ? 'Update' : 'Submit' }}</button>

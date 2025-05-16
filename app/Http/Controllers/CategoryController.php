@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class JobController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,8 @@ class JobController extends Controller
     public function index()
     {
         //
-        $job = Job::all();
         $category = Category::all();
-        return view('admin.job', compact('job', 'category'));
+        return view('admin.category-job', compact('category'));
     }
 
     /**
@@ -24,8 +22,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        $category = Category::all(); // Ambil semua kategori
-        return view('admin.add-job', compact('category'));
+        //
     }
 
     /**
@@ -36,23 +33,20 @@ class JobController extends Controller
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
-            'desc' => 'required|string',
         ]);
 
         // Simpan ke database
-        Job::create([
+        Category::create([
             'name' => $request->name,
-            'desc' => $request->desc,
-            'category_job_id' => $request->category,
         ]);
 
-        return redirect()->route('job')->with('success', 'Job successfully added!');
+        return redirect()->route('category-job')->with('success', 'Category successfully added!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Job $id)
+    public function show(Category $category)
     {
         //
     }
@@ -60,41 +54,32 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
         //
-        $job = Job::findOrFail($id);
-        $category = Category::all();
-        return view('admin.add-job', compact('job', 'category'));
-        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Job $job)
+    public function update(Request $request, $id)
     {
-        //
         $request->validate([
             'name' => 'required|string|max:255',
-            'desc' => 'required|string',
         ]);
-    
-        // $job = Job::findOrFail($id);
-        $job->update([
+
+        $category = Category::findOrFail($id);
+        $category->update([
             'name' => $request->name,
-            'desc' => $request->desc,
-            'category_job_id' => $request->category,
         ]);
-        // dd($request->all());
-    
-        return redirect()->route('job')->with('success', 'Job successfully updated!');
+
+        return redirect()->route('category-job')->with('success', 'Job updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Job $id)
+    public function destroy(Category $category)
     {
         //
     }

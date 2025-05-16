@@ -5,7 +5,11 @@
         <i>🔍</i>
         <input type="text" placeholder="Cari Nama Pekerjaan / Perusahaan / Lokasi">
     </div> -->
-
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="search-container">
         <form method="GET" action="{{ route('dashboard-recruiter') }}" class="flex items-center gap-2 w-full">
             <i>🔍</i>
@@ -33,7 +37,9 @@
                     </div>
                 </div>
                 <div class="text-end">
-                    <button class="btn btn-lg btn-purple mb-3 px-4">View Detail</button><br>
+                    <button class="btn btn-lg btn-purple mb-3 px-4">
+                        <a href="{{ route('projects.show', $item->id) }}">View Detail</a>
+                    </button><br>
                     <button class="btn btn-lg btn-purple px-4">Show Bids</button>
                 </div>
             </div>

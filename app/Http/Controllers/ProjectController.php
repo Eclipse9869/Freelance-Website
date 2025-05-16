@@ -15,22 +15,14 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         //
-        $query = Project::query();
+        $query = Project::where('users_id', auth()->id());
 
-        // Cek apakah ada input pencarian
         if ($request->has('search') && $request->search != '') {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
         $project = $query->paginate(5);
         $project->appends(request()->query());
 
-        //AJAX
-        // if ($request->ajax()) {
-        //     return view('recruiter.partials.project-list', compact('project'))->render();
-        // }
-
-        // $project = Project::all();
-        // $project = Project::paginate(5);
         $job = Job::all();
         return view('recruiter.dashboard-recruiter', compact('job', 'project'));
     }
@@ -75,7 +67,7 @@ class ProjectController extends Controller
 
         $project->job()->attach($validated['job']);
 
-        return redirect()->route('projects.create')->with('success', 'Project berhasil dibuat!');
+        return redirect()->route('dashboard-recruiter')->with('success', 'Project berhasil dibuat!');
     }
 
     /**
@@ -83,7 +75,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $project->load('job');
+        return view('recruiter.detail-project', compact('project'));
     }
 
     /**
@@ -92,6 +85,14 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //
+        if ($project->users_id !== auth()->id()) {
+            abort(403);
+        }
+    
+        $job = Job::all();
+        $selectedJobs = $project->job->pluck('id')->toArray();
+    
+        return view('recruiter.add-project', compact('project', 'job', 'selectedJobs'));
     }
 
     /**
@@ -100,6 +101,25 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         //
+        if ($project->users_id !== auth()->id()) {
+            abort(403);
+        }
+    
+        $validated = $request->validate([
+            'name' => 'required|string|max:45',
+            'desc' => 'required|string|max:500',
+            'req_edu' => 'nullable|string|max:15',
+            'amount_min' => 'required|numeric',
+            'amount_max' => 'required|numeric',
+            'deadline' => 'required|date',
+            'job' => 'required|array',
+            'job.*' => 'exists:job,id',
+        ]);
+    
+        $project->update($validated);
+        $project->job()->sync($validated['job']);
+    
+        return redirect()->route('dashboard-recruiter')->with('success', 'Project berhasil diperbarui!');
     }
 
     /**

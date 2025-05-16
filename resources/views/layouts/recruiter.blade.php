@@ -6,6 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>myFreelance</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -164,6 +166,73 @@
             background-color: white;
             font-weight: bold;
             font-size: 18px;
+        }
+
+        .container-1 {
+            max-width: 60%;
+            margin: 20px auto;
+            /* padding: 0 15px; */
+        }
+
+        .project-box {
+            background: #e3e3e3;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-header h1 {
+            color: #e94f00;
+            margin: 0;
+            font-size: 24px;
+            border-bottom: 2px solid #4b0082;
+        }
+
+        .project-desc {
+            margin: 15px 0;
+            color: #333;
+        }
+
+        .project-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .owner, .detail {
+            flex: 1;
+        }
+
+        .owner h2, .detail h2 {
+            color: #e94f00;
+            border-bottom: 2px solid #4b0082;
+            display: inline-block;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .owner-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .logo-box-1 {
+            width: 80px;
+            height: 80px;
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: purple;
+            font-weight: bold;
         }
     </style>
 </head>

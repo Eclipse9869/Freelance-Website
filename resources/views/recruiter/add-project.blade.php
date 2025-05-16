@@ -3,29 +3,37 @@
 <main>
     <div class="breadcrumb">Home > Open Recruitment</div>
     <div class="form-container">
-      <form action="{{ route('projects.store') }}" method="POST">
+      <form action="{{ isset($project) ? route('projects.update', $project->id) : route('projects.store') }}" method="POST">
         @csrf
+        @if(isset($project))
+          @method('PUT')
+        @endif
         <label for="name">Project Name :</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" value="{{ old('name', $project->name ?? '') }}" required>
 
         <label for="desc">Description :</label>
-        <textarea id="desc" name="desc" required></textarea>
+        <textarea id="desc" name="desc" required>{{ old('desc', $project->desc ?? '') }}</textarea>
 
         <label for="name">Minimum education :</label>
-        <input type="text" id="req_edu" name="req_edu" required>
+        <input type="text" id="req_edu" name="req_edu" value="{{ old('req_edu', $project->req_edu ?? '') }}" required>
 
         <label>Budget Range :</label>
         <div class="budget-range">
           <span>Rp</span>
-          <input type="text" name="amount_min" required>
+          <input type="text" name="amount_min" value="{{ old('amount_min', $project->amount_min ?? '') }}" required>
           <span>-</span>
-          <input type="text" name="amount_max" required>
+          <input type="text" name="amount_max" value="{{ old('amount_max', $project->amount_max ?? '') }}" required>
         </div>
 
         <label for="job">Channel Job :</label>
+        @php
+            $selectedJobs = old('job', isset($project) ? $project->job->pluck('id')->toArray() : []);
+        @endphp
         <select name="job[]" multiple required size="5">
           @foreach ($job as $channel)
-            <option value="{{ $channel->id }}">{{ $channel->name }}</option>
+            <option value="{{ $channel->id }}" {{ in_array($channel->id, $selectedJobs) ? 'selected' : '' }}>
+              {{ $channel->name }}
+            </option>
           @endforeach
         </select>
         <!-- <select id="channel" name="channel">
@@ -37,11 +45,11 @@
 
         <label for="deadline">Deadline :</label>
         <div style="display: flex;">
-          <input type="date" id="deadline" name="deadline" style="flex: 1;">
+          <input type="date" id="deadline" name="deadline" value="{{ old('deadline', isset($project) ? \Carbon\Carbon::parse($project->deadline)->format('Y-m-d') : '') }}" style="flex: 1;">
           <!-- <div class="calendar-icon"></div> -->
         </div>
 
-        <button type="submit" class="submit-btn">Save and Publish</button>
+        <button type="submit" class="submit-btn">{{ isset($project) ? 'Update Project' : 'Save and Publish' }}</button>
       </form>
     </div>
 </main>
