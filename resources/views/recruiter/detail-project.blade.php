@@ -21,7 +21,7 @@
                         <div class="logo-box-1">LOGO</div>
                         <div>
                             <strong>{{ $project->users->name }}</strong><br>
-                            Kota {{ $project->users->domicile ?? 'Tidak diketahui' }}
+                            Kota {{ $project->users->domicile ?? '-' }}
                         </div>
                     </div>
                 </div>

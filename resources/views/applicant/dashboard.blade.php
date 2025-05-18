@@ -10,45 +10,22 @@
     <div class="container category-wrapper">
     <div class="row text-center justify-content-center">
       <!-- 1 -->
-      <div class="col-6 col-md-3 category-item">
-        <div class="circle-logo">🟧🟧🟧🟧</div>
-        <div class="category-label">Semua Kategori</div>
-      </div>
+        <div class="col-6 col-md-3 category-item">
+          <a href="{{ route('all-category') }}" class="text-decoration-none text-dark">
+            <div class="circle-logo">🟧🟧🟧🟧</div>
+            <div class="category-label">All Category</div>
+          </a>
+        </div>
+    
       <!-- 2 -->
-      <div class="col-6 col-md-3 category-item">
-        <div class="circle-logo">LOGO</div>
-        <div class="category-label">Frontend Developer</div>
-      </div>
-      <!-- 3 -->
-      <div class="col-6 col-md-3 category-item">
-        <div class="circle-logo">LOGO</div>
-        <div class="category-label">Backend Developer</div>
-      </div>
-      <!-- 4 -->
-      <div class="col-6 col-md-3 category-item">
-        <div class="circle-logo">LOGO</div>
-        <div class="category-label">Mobile App Developer</div>
-      </div>
-      <!-- 5 -->
-      <div class="col-6 col-md-3 category-item">
-        <div class="circle-logo">LOGO</div>
-        <div class="category-label">Website Developer</div>
-      </div>
-      <!-- 6 -->
-      <div class="col-6 col-md-3 category-item">
-        <div class="circle-logo">LOGO</div>
-        <div class="category-label">Database Administrator</div>
-      </div>
-      <!-- 7 -->
-      <div class="col-6 col-md-3 category-item">
-        <div class="circle-logo">LOGO</div>
-        <div class="category-label">UI/UX Designer</div>
-      </div>
-      <!-- 8 -->
-      <div class="col-6 col-md-3 category-item">
-        <div class="circle-logo">LOGO</div>
-        <div class="category-label">Software Engineering</div>
-      </div>
+      @foreach($category as $item)
+        <div class="col-6 col-md-3 category-item">
+          <a href="{{ route('category.show', $item->id) }}" class="text-decoration-none text-dark">
+            <div class="circle-logo">LOGO</div>
+            <div class="category-label">{{ $item->name }}</div>
+          </a>
+        </div>
+      @endforeach
     </div>
   </div>
 @endsection

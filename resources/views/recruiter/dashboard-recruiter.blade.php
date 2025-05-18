@@ -1,17 +1,12 @@
 @extends('layouts.recruiter')
 @section('content')
-    <!-- Search Bar -->
-    <!-- <div class="search-container">
-        <i>🔍</i>
-        <input type="text" placeholder="Cari Nama Pekerjaan / Perusahaan / Lokasi">
-    </div> -->
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
     <div class="search-container">
-        <form method="GET" action="{{ route('dashboard-recruiter') }}" class="flex items-center gap-2 w-full">
+        <form method="GET" action="{{ route('projects.index') }}" class="flex items-center gap-2 w-full">
             <i>🔍</i>
             <input type="text" name="search" placeholder="Search Your Project" value="{{ request('search') }}" class="flex-1">
             <button type="submit" class="btn btn-purple">Search</button>
@@ -48,13 +43,5 @@
                 <h5>You haven't created any projects yet.</h5>
             </div>
         @endforelse
-
-
-        <!-- Pagination -->
-        <!-- <div class="text-center mt-4" style="font-size: 20px;">
-            <span class="me-4">&laquo; Prev</span>
-            <strong>1</strong>
-            <span class="ms-4">Next &raquo;</span>
-        </div> -->
     </div>
 @endsection

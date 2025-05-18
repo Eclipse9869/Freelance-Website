@@ -7,9 +7,17 @@
     <title>myFreelance</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="stylesheet" href="{{ asset('css/project.css') }}">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- reload search -->
+    <script>
+        if (window.location.search.includes('search=')) {
+            const url = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, url);
+        }
+    </script>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -118,6 +126,16 @@
                 font-size: 16px;
             }
         }
+        
+        .btn-purple {
+            background-color: #4B007D;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -143,7 +161,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                         <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Edit Profile</a></li>
                         <li><a class="dropdown-item" href="{{ route('logout') }}">My Bid History</a></li>
-                        <li><a class="dropdown-item" href="{{ route('dashboard-recruiter') }}">As Recruiter</a></li>
+                        <li><a class="dropdown-item" href="{{ route('projects.index') }}">As Recruiter</a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

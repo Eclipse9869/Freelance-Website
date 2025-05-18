@@ -59,7 +59,7 @@
         let keyword = $(this).val();
 
         $.ajax({
-            url: "{{ route('dashboard-recruiter') }}",
+            url: "{{ route('projects.index') }}",
             type: "GET",
             data: { search: keyword },
             success: function(data) {

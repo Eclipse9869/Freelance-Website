@@ -67,7 +67,7 @@ class ProjectController extends Controller
 
         $project->job()->attach($validated['job']);
 
-        return redirect()->route('dashboard-recruiter')->with('success', 'Project berhasil dibuat!');
+        return redirect()->route('projects.index')->with('success', 'Project berhasil dibuat!');
     }
 
     /**
@@ -119,7 +119,7 @@ class ProjectController extends Controller
         $project->update($validated);
         $project->job()->sync($validated['job']);
     
-        return redirect()->route('dashboard-recruiter')->with('success', 'Project berhasil diperbarui!');
+        return redirect()->route('projects.index')->with('success', 'Project berhasil diperbarui!');
     }
 
     /**
@@ -128,5 +128,20 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+
+    public function dashboard(Request $request)
+    {
+        //
+        $query = Project::with('users');
+
+        if ($request->has('search') && $request->search != '') {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+        $project = $query->paginate(5);
+        $project->appends(request()->query());
+
+        $job = Job::all();
+        return view('applicant.all-category', compact('job', 'project'));
     }
 }

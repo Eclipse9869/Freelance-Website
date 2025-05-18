@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -15,6 +16,12 @@ class CategoryController extends Controller
         //
         $category = Category::all();
         return view('admin.category-job', compact('category'));
+
+    }public function home()
+    {
+        //
+        $category = Category::all();
+        return view('applicant.dashboard', compact('category'));
     }
 
     /**
@@ -46,9 +53,25 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        $jobIds = $category->jobs()->pluck('id');
+
+        $query = Project::whereHas('job', function ($q) use ($jobIds) {
+            $q->whereIn('job.id', $jobIds);
+        })->with('job');
+
+        // Jika ada keyword pencarian
+        if ($request->has('search') && $request->search != '') {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $project = $query->paginate(5);
+        $project->appends($request->query()); // menjaga query string saat pagination
+
+        return view('applicant.category-project', compact('project', 'category'));
     }
 
     /**

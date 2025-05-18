@@ -15,6 +15,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- reload search -->
+    <script>
+        if (window.location.search.includes('search=')) {
+            const url = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, url);
+        }
+    </script>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -239,7 +246,7 @@
 <body>
     <!-- Navbar -->
     <div class="navbar-custom d-flex justify-content-between align-items-center">
-        <a href="{{ route('dashboard-recruiter') }}">
+        <a href="{{ route('projects.index') }}">
             <!-- <span class="orange">my</span><span class="white-bold">Freelance</span> -->
             <div class="brand-wrapper position-relative">
                 <div class="brand">
