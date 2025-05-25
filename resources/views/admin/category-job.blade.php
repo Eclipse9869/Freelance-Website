@@ -34,7 +34,7 @@
                 <!-- Modal Edit (inside loop) -->
                 <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
                   <div class="modal-dialog">
-                    <form action="{{ route('category-job.update', $item->id) }}" method="POST">
+                    <form action="{{ route('category-job.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                       @csrf
                       @method('PUT')
                       <div class="modal-content">
@@ -46,6 +46,15 @@
                           <div class="mb-3">
                             <label class="form-label">Category Name</label>
                             <input type="text" class="form-control" name="name" value="{{ $item->name }}" required>
+                          </div>
+                          <div class="mb-3">
+                              <label class="form-label">Category Image</label>
+                              <input type="file" class="form-control" name="image" accept="image/*">
+                              @if($item->image)
+                                  <div class="mt-2">
+                                      <img src="{{ asset('storage/category/' . $item->image) }}" alt="Category Image" style="max-width: 100px;">
+                                  </div>
+                              @endif
                           </div>
                         </div>
                         <div class="modal-footer">
@@ -65,7 +74,7 @@
 <!-- Modal Add Category -->
 <div class="modal fade" id="addJobModal" tabindex="-1" aria-labelledby="addJobModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="{{ route('category-job.store') }}" method="POST">
+    <form action="{{ route('category-job.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="modal-content">
         <div class="modal-header">
@@ -76,6 +85,10 @@
           <div class="mb-3">
             <label class="form-label">Category Name</label>
             <input type="text" class="form-control" name="name" required>
+          </div>
+          <div class="mb-3">
+              <label class="form-label">Category Image</label>
+              <input type="file" class="form-control" name="image" accept="image/*">
           </div>
         </div>
         <div class="modal-footer">

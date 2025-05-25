@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -40,11 +41,19 @@ class CategoryController extends Controller
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->storeAs('public/category', $imageName);
+        }
 
         // Simpan ke database
         Category::create([
             'name' => $request->name,
+            'image' => $imageName,
         ]);
 
         return redirect()->route('category-job')->with('success', 'Category successfully added!');
@@ -89,14 +98,26 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+    
         $category = Category::findOrFail($id);
-        $category->update([
-            'name' => $request->name,
-        ]);
-
-        return redirect()->route('category-job')->with('success', 'Job updated successfully!');
+    
+        if ($request->hasFile('image')) {
+            // Optional: hapus gambar lama
+            if ($category->image && Storage::exists('public/category/' . $category->image)) {
+                Storage::delete('public/category/' . $category->image);
+            }
+    
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->storeAs('public/category', $imageName);
+            $category->image = $imageName;
+        }
+    
+        $category->name = $request->name;
+        $category->save();
+    
+        return redirect()->route('category-job')->with('success', 'Category updated successfully!');
     }
 
     /**
