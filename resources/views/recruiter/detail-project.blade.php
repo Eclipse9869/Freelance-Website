@@ -13,7 +13,6 @@
                 </button>
             </div>
             <p class="project-desc">{{ $project->desc }}</p>
-
             <div class="project-info">
                 <div class="owner">
                     <h2>Project Owner</h2>
@@ -21,9 +20,9 @@
                         <div class="logo-box-1">
                         @if($project->users->profile_pic)
                             <img 
-                            src="{{ asset('storage/profile_pics/' . $project->users->profile_pic) }}" 
+                            src="{{ asset('storage/' . $project->users->profile_pic) }}" 
                             alt="{{ $project->users->name }}" 
-                            style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;">
+                            style="width: 80px; height: 80px; object-fit: cover;">
                         @else
                             <img 
                             src="https://ui-avatars.com/api/?name={{ urlencode($project->users->name) }}&background=4B007D&color=ffffff&size=80" 
@@ -37,7 +36,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="detail">
                     <h2>Project Detail</h2>
                     <p>
@@ -59,7 +57,6 @@
                         <strong>Deadline Project:</strong> {{ \Carbon\Carbon::parse($project->deadline)->translatedFormat('d F Y') }}
                     </p>
                 </div>
-
             </div>
         </section>
     </div>

@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/all-category', [ProjectController::class, 'dashboard'])->name('all-category');
     Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
+    // Route::get('/projects/{projects}', [ProjectController::class, 'showDashboard'])->name('projects.showDashboard');
 
     // Route::get('/dashboard-recruiter', [ProjectController::class, 'index'])->name('dashboard-recruiter');
     // Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');

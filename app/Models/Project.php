@@ -16,7 +16,7 @@ class Project extends Model
         return $this->belongsToMany(Job::class, 'job_has_project', 'project_id', 'job_id');
     }
     public function users()
-{
-    return $this->belongsTo(User::class, 'users_id');
-}
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
 }

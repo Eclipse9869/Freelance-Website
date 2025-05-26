@@ -79,6 +79,12 @@ class ProjectController extends Controller
         return view('recruiter.detail-project', compact('project'));
     }
 
+    // public function showDashboard(Project $projects)
+    // {
+    //     $projects->load('job');
+    //     return view('applicant.category-project', compact('projects'));
+    // }
+
     /**
      * Show the form for editing the specified resource.
      */

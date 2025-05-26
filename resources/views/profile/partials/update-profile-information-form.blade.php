@@ -16,7 +16,6 @@
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
-
         <div class="mb-4 text-center position-relative" style="display: inline-block;">
             <!-- Foto Profil -->
             <div class="mb-2 position-relative">
@@ -132,6 +131,52 @@
             <x-input-label for="date_of_birth" :value="__('Date of Birth')" />
             <input id="date_of_birth" name="date_of_birth" type="date" class="mt-1 block w-full" value="{{ old('date_of_birth', $user->date_of_birth) }}" required />
             <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
+        </div>
+
+        <div>
+            <x-input-label for="education" :value="__('Education')" />
+            <div class="space-y-6 border-2 border-orange-400 rounded-md p-4">
+                <div class="bg-white border-b pb-3">
+                    <h4 class="text-md font-bold"><strong>SMK/SMA XXX (SMA/SMK/Sederajat)</strong></h4>
+                    <p class="text-sm text-gray-800 italic">Teknik Komputer Jaringan</p>
+                    <p class="text-sm text-gray-600">April 2015 - Agustus 2018</p>
+                    <p class="text-sm mt-2">
+                        <strong>Pengalaman Organisasi/Pengembangan Diri :</strong><br>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pretium vulputate varius...
+                    </p>
+                </div>
+
+                <div class="bg-white border-b pb-3">
+                    <h4 class="text-md font-bold text-black"><strong>Universitas XXX (S1)</strong></h4>
+                    <p class="text-sm text-gray-800 italic">Teknik Informatika</p>
+                    <p class="text-sm text-gray-600">Agustus 2018 - Maret 2022</p>
+                    <p class="text-sm mt-2">
+                        <strong>Pengalaman Organisasi/Pengembangan Diri :</strong><br>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pretium vulputate varius...
+                    </p>
+                </div>
+            </div>
+            <div class="mt-2 text-end">
+                <x-danger-button>Add</x-danger-button>
+            </div>
+        </div>
+
+        <div>
+            <x-input-label for="experience" :value="__('Experience')" />
+            <div class="space-y-6 border-2 border-orange-400 rounded-md p-4">
+                <div class="bg-white border-b pb-3">
+                    <h4 class="text-md font-bold">PT bla bla bla</h4>
+                    <p class="text-sm text-gray-800 italic">Web Developer</p>
+                    <p class="text-sm text-gray-600">April 2015 - Agustus 2018</p>
+                    <p class="text-sm mt-2">
+                        <strong>Pengalaman Organisasi/Pengembangan Diri :</strong><br>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pretium vulputate varius...
+                    </p>
+                </div>
+            </div>
+            <div class="mt-2 text-end">
+                <x-danger-button>Add</x-danger-button>
+            </div>
         </div>
 
         <div class="flex items-center gap-4">

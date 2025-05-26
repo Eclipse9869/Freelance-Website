@@ -14,8 +14,18 @@
         <label for="desc">Description :</label>
         <textarea id="desc" name="desc" required>{{ old('desc', $project->desc ?? '') }}</textarea>
 
-        <label for="name">Minimum education :</label>
-        <input type="text" id="req_edu" name="req_edu" value="{{ old('req_edu', $project->req_edu ?? '') }}" required>
+        <label for="req_edu">Minimum education :</label>
+        <select id="req_edu" name="req_edu" class="mt-1 block w-full" required>
+            <option value="">-- Choose Education --</option>
+            <option value="SMA/SMK/Sederajat" {{ old('req_edu', $project->req_edu ?? '') == 'SMA/SMK/Sederajat' ? 'selected' : '' }}>SMA/SMK/Sederajat</option>
+            <option value="D1" {{ old('req_edu', $project->req_edu ?? '') == 'D1' ? 'selected' : '' }}>D1</option>
+            <option value="D2" {{ old('req_edu', $project->req_edu ?? '') == 'D2' ? 'selected' : '' }}>D2</option>
+            <option value="D3" {{ old('req_edu', $project->req_edu ?? '') == 'D3' ? 'selected' : '' }}>D3</option>
+            <option value="D4" {{ old('req_edu', $project->req_edu ?? '') == 'D4' ? 'selected' : '' }}>D4</option>
+            <option value="S1" {{ old('req_edu', $project->req_edu ?? '') == 'S1' ? 'selected' : '' }}>S1</option>
+            <option value="S2" {{ old('req_edu', $project->req_edu ?? '') == 'S2' ? 'selected' : '' }}>S2</option>
+            <option value="S3" {{ old('req_edu', $project->req_edu ?? '') == 'S3' ? 'selected' : '' }}>S3</option>
+        </select>
 
         <label>Budget Range :</label>
         <div class="budget-range">
@@ -29,13 +39,14 @@
         @php
             $selectedJobs = old('job', isset($project) ? $project->job->pluck('id')->toArray() : []);
         @endphp
-        <select name="job[]" multiple required size="5">
+        <select id="job" name="job[]" multiple="multiple" required>
           @foreach ($job as $channel)
             <option value="{{ $channel->id }}" {{ in_array($channel->id, $selectedJobs) ? 'selected' : '' }}>
               {{ $channel->name }}
             </option>
           @endforeach
         </select>
+
         <!-- <select id="channel" name="channel">
           <option value="">-- Pilih Channel --</option>
           <option value="email">Email</option>
@@ -53,7 +64,7 @@
       </form>
     </div>
 </main>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $('#liveSearch').on('keyup', function() {
         let keyword = $(this).val();
@@ -67,5 +78,5 @@
             }
         });
     });
-</script>
+</script> -->
 @endsection
