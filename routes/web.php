@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EduController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/category-job', [CategoryController::class, 'index'])->name('category-job');
     Route::post('/category-job', [CategoryController::class, 'store'])->name('category-job.store');
     Route::put('/category-job/{id}', [CategoryController::class, 'update'])->name('category-job.update');
+
+    Route::get('/add-edu', [EduController::class, 'create'])->name('edu.create');
+    Route::post('/add-edu', [EduController::class, 'store'])->name('edu.store');
+    // Route::get('/edit-edu/{id}', [EduController::class, 'edit'])->name('edu.edit');
+    Route::get('/edit-edu/{edu}', [EduController::class, 'edit'])->name('edu.edit');
+    // Route::put('/edit-edu/{id}', [EduController::class, 'update'])->name('edu.update');
+    Route::put('/edit-edu/{edu}', [EduController::class, 'update'])->name('edu.update');
+    Route::delete('/delete-edu/{edu}', [EduController::class, 'destroy'])->name('edu.destroy');
 });
 
 require __DIR__.'/auth.php';

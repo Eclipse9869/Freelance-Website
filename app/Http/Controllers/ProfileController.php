@@ -16,8 +16,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user()->load('educations.edulevel');
+
         return view('profile.edit', [
             'user' => $request->user(),
+            'educations' => $user->educations,
         ]);
     }
 
@@ -100,5 +103,4 @@ class ProfileController extends Controller
 
         return response()->json(['status' => 'success']);
     }
-
 }

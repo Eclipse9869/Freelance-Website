@@ -14,5 +14,4 @@ class Category extends Model
     {
         return $this->hasMany(Job::class, 'category_job_id');
     }
-
 }

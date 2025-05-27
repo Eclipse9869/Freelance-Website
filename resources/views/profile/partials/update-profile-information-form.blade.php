@@ -133,31 +133,52 @@
             <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
         </div>
 
-        <div>
-            <x-input-label for="education" :value="__('Education')" />
-            <div class="space-y-6 border-2 border-orange-400 rounded-md p-4">
-                <div class="bg-white border-b pb-3">
-                    <h4 class="text-md font-bold"><strong>SMK/SMA XXX (SMA/SMK/Sederajat)</strong></h4>
-                    <p class="text-sm text-gray-800 italic">Teknik Komputer Jaringan</p>
-                    <p class="text-sm text-gray-600">April 2015 - Agustus 2018</p>
-                    <p class="text-sm mt-2">
-                        <strong>Pengalaman Organisasi/Pengembangan Diri :</strong><br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pretium vulputate varius...
-                    </p>
-                </div>
+        <div class="flex items-center gap-4">
+            <x-primary-button>{{ __('Save') }}</x-primary-button>
 
+            @if (session('status') === 'profile-updated')
+                <p
+                    x-data="{ show: true }"
+                    x-show="show"
+                    x-transition
+                    x-init="setTimeout(() => show = false, 2000)"
+                    class="text-sm text-gray-600"
+                >{{ __('Saved.') }}</p>
+            @endif
+        </div>
+    </form>
+
+    <div>
+        <x-input-label for="education" :value="__('Education')" />
+        <div class="space-y-6 border-2 border-orange-400 rounded-md p-4">
+            @forelse ($educations as $edu)
                 <div class="bg-white border-b pb-3">
-                    <h4 class="text-md font-bold text-black"><strong>Universitas XXX (S1)</strong></h4>
-                    <p class="text-sm text-gray-800 italic">Teknik Informatika</p>
-                    <p class="text-sm text-gray-600">Agustus 2018 - Maret 2022</p>
+                    <h4 class="text-md font-bold"><strong>{{ $edu->school_name }} ({{ $edu->edulevel->name ?? 'N/A' }})</strong></h4>
+                    <p class="text-sm text-gray-800 italic">{{ $edu->major }}</p>
+                    <p class="text-sm text-gray-600">{{ $edu->start }} - {{ $edu->end }}</p>
                     <p class="text-sm mt-2">
                         <strong>Pengalaman Organisasi/Pengembangan Diri :</strong><br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pretium vulputate varius...
+                        {{ $edu->desc }}
                     </p>
+                    <div>
+                        <!-- Tombol Edit -->
+                        <a href="{{ route('edu.edit', $edu->id) }}" class="text-blue-600 hover:underline">Edit</a>
+                        <!-- Tombol Delete -->
+                        <form action="{{ route('edu.destroy', $edu->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                        </form>
+                    </div>
                 </div>
+            @empty
+                <p class="text-gray-500 italic">Belum ada data pendidikan.</p>
+            @endforelse
             </div>
             <div class="mt-2 text-end">
-                <x-danger-button>Add</x-danger-button>
+                <a href="{{ route('edu.create') }}">
+                    <x-danger-button>Add</x-danger-button>
+                </a>
             </div>
         </div>
 
@@ -178,19 +199,4 @@
                 <x-danger-button>Add</x-danger-button>
             </div>
         </div>
-
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-            @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
-                >{{ __('Saved.') }}</p>
-            @endif
-        </div>
-    </form>
 </section>
