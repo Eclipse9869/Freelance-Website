@@ -21,6 +21,7 @@ class ExperienceController extends Controller
     public function create()
     {
         //
+        return view('profile.add-experience');
     }
 
     /**
@@ -29,6 +30,29 @@ class ExperienceController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'company_name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'job_name' => 'required|string|max:255',
+            'industry' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'start' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
+            'end' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
+        ]);        
+
+        // Simpan ke database
+        Experience::create([
+            'company_name' => $request->company_name,
+            'type' => $request->type,
+            'job_name' => $request->job_name,
+            'industry' => $request->industry,
+            'desc' => $request->desc,
+            'start' => $request->start,
+            'end' => $request->end,
+            'users_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('profile.edit')->with('success', 'Experience successfully added!');
     }
 
     /**
@@ -45,6 +69,7 @@ class ExperienceController extends Controller
     public function edit(Experience $experience)
     {
         //
+        return view('profile.add-experience', compact('experience'));
     }
 
     /**
@@ -53,6 +78,27 @@ class ExperienceController extends Controller
     public function update(Request $request, Experience $experience)
     {
         //
+        $request->validate([
+            'company_name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'job_name' => 'required|string|max:255',
+            'industry' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'start' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
+            'end' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
+        ]);
+
+        $experience->update([
+            'company_name' => $request->company_name,
+            'type' => $request->type,
+            'job_name' => $request->job_name,
+            'industry' => $request->industry,
+            'desc' => $request->desc,
+            'start' => $request->start,
+            'end' => $request->end,
+        ]);
+
+        return redirect()->route('profile.edit')->with('success', 'Experience successfully updated!');
     }
 
     /**
@@ -61,5 +107,7 @@ class ExperienceController extends Controller
     public function destroy(Experience $experience)
     {
         //
+        $experience->delete();
+        return redirect()->route('profile.edit')->with('success', 'Experience successfully deleted!');
     }
 }

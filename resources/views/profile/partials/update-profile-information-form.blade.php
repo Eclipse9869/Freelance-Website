@@ -185,18 +185,35 @@
         <div>
             <x-input-label for="experience" :value="__('Experience')" />
             <div class="space-y-6 border-2 border-orange-400 rounded-md p-4">
+            @forelse ($experiences as $experience)
                 <div class="bg-white border-b pb-3">
-                    <h4 class="text-md font-bold">PT bla bla bla</h4>
-                    <p class="text-sm text-gray-800 italic">Web Developer</p>
-                    <p class="text-sm text-gray-600">April 2015 - Agustus 2018</p>
+                    <h4 class="text-md font-bold"><strong>{{ $experience->company_name }}</strong></h4>
+                    <p class="text-sm text-gray-800 italic">{{ $experience->job_name }} ({{ $experience->type }})</p>
+                    <p class="text-sm text-gray-800 italic">{{ $experience->industry }}</p>
+                    <p class="text-sm text-gray-600">{{ $experience->start }} - {{ $experience->end }}</p>
                     <p class="text-sm mt-2">
                         <strong>Pengalaman Organisasi/Pengembangan Diri :</strong><br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pretium vulputate varius...
+                        {{ $experience->desc }}
                     </p>
+                    <div>
+                        <!-- Tombol Edit -->
+                        <a href="{{ route('experience.edit', $experience->id) }}" class="text-blue-600 hover:underline">Edit</a>
+                        <!-- Tombol Delete -->
+                        <form action="{{ route('experience.destroy', $experience->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                        </form>
+                    </div>
                 </div>
+            @empty
+                <p class="text-gray-500 italic">Belum ada data pengalaman.</p>
+            @endforelse
             </div>
             <div class="mt-2 text-end">
-                <x-danger-button>Add</x-danger-button>
+                <a href="{{ route('experience.create') }}">
+                    <x-danger-button>Add</x-danger-button>
+                </a>
             </div>
         </div>
 </section>

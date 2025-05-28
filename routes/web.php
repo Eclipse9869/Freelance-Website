@@ -5,6 +5,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EduController;
+use App\Http\Controllers\ExperienceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,11 +59,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/add-edu', [EduController::class, 'create'])->name('edu.create');
     Route::post('/add-edu', [EduController::class, 'store'])->name('edu.store');
-    // Route::get('/edit-edu/{id}', [EduController::class, 'edit'])->name('edu.edit');
     Route::get('/edit-edu/{edu}', [EduController::class, 'edit'])->name('edu.edit');
-    // Route::put('/edit-edu/{id}', [EduController::class, 'update'])->name('edu.update');
     Route::put('/edit-edu/{edu}', [EduController::class, 'update'])->name('edu.update');
     Route::delete('/delete-edu/{edu}', [EduController::class, 'destroy'])->name('edu.destroy');
+
+    Route::get('/add-experience', [ExperienceController::class, 'create'])->name('experience.create');
+    Route::post('/add-experience', [ExperienceController::class, 'store'])->name('experience.store');
+    Route::get('/edit-experience/{experience}', [ExperienceController::class, 'edit'])->name('experience.edit');
+    Route::put('/edit-experience/{experience}', [ExperienceController::class, 'update'])->name('experience.update');
+    Route::delete('/delete-experience/{experience}', [ExperienceController::class, 'destroy'])->name('experience.destroy');
 });
 
 require __DIR__.'/auth.php';

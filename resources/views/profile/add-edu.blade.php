@@ -1,7 +1,7 @@
 @extends('layouts.recruiter')
 @section('content')
 <main>
-    <div class="breadcrumb">Home > Open Recruitment</div>
+    <div class="breadcrumb">Home > Profile > Add Study</div>
     <div class="form-container">
       <form action="{{ isset($edu) ? route('edu.update', $edu->id) : route('edu.store') }}" method="POST">
         @csrf
