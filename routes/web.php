@@ -6,6 +6,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EduController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\BidController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,6 +69,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/edit-experience/{experience}', [ExperienceController::class, 'edit'])->name('experience.edit');
     Route::put('/edit-experience/{experience}', [ExperienceController::class, 'update'])->name('experience.update');
     Route::delete('/delete-experience/{experience}', [ExperienceController::class, 'destroy'])->name('experience.destroy');
+
+    Route::get('/history-bid', [BidController::class, 'index'])->name('bid.index');
+    // Route::get('/add-bid', [BidController::class, 'create'])->name('bid.create');
+    Route::get('/bid/create/{project}', [BidController::class, 'create'])->name('bid.create');
+    Route::post('/add-bid', [BidController::class, 'store'])->name('bid.store');
 });
 
 require __DIR__.'/auth.php';

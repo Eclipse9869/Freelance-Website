@@ -150,10 +150,12 @@
 
             <!-- Right: Buttons -->
             <div class="text-end">
-                <a href="#" class="btn btn-purple mb-2 px-4">Place a Bid</a><br>
-                <button type="button" class="btn btn-purple px-4" data-bs-toggle="modal" data-bs-target="#projectDetailModal{{ $item->id }}">
+                <button type="button" class="btn btn-purple px-4 mb-2" data-bs-toggle="modal" data-bs-target="#projectDetailModal{{ $item->id }}">
                     View Detail
-                </button>
+                </button><br>
+                @if (auth()->id() !== $item->users->id)
+                    <a href="{{ route('bid.create', $item->id) }}" class="btn btn-purple mb-2 px-4">Place a Bid</a>
+                @endif
             </div>
         </div>
     @empty
