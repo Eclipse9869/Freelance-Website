@@ -18,17 +18,17 @@
                     <h2>Project Owner</h2>
                     <div class="owner-content">
                         <div class="logo-box-1">
-                        @if($project->users->profile_pic)
-                            <img 
-                            src="{{ asset('storage/' . $project->users->profile_pic) }}" 
-                            alt="{{ $project->users->name }}" 
-                            style="width: 80px; height: 80px; object-fit: cover;">
-                        @else
-                            <img 
-                            src="https://ui-avatars.com/api/?name={{ urlencode($project->users->name) }}&background=4B007D&color=ffffff&size=80" 
-                            alt="{{ $project->users->name }}" 
-                            style="width: 80px; height: 80px; object-fit: cover;">
-                        @endif
+                            @if($project->users->profile_pic)
+                                <img 
+                                src="{{ asset('storage/' . $project->users->profile_pic) }}" 
+                                alt="{{ $project->users->name }}" 
+                                style="width: 80px; height: 80px; object-fit: cover;">
+                            @else
+                                <img 
+                                src="https://ui-avatars.com/api/?name={{ urlencode($project->users->name) }}&background=4B007D&color=ffffff&size=80" 
+                                alt="{{ $project->users->name }}" 
+                                style="width: 80px; height: 80px; object-fit: cover;">
+                            @endif
                         </div>
                         <div>
                             <strong>{{ $project->users->name }}</strong><br>

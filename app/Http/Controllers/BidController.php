@@ -81,6 +81,29 @@ class BidController extends Controller
         return redirect()->route('dashboard')->with('success', 'Bid berhasil dikirim.');
     }
 
+    public function showBids(Request $request, Project $project)
+    {
+        $search = $request->query('search');
+
+        $bids = Bid::with('users', 'bidDetails')
+            ->whereHas('bidDetails', function ($query) use ($project) {
+                $query->where('project_id', $project->id);
+            })
+            // Kalau ada search, filter user name dan project name
+            ->when($search, function ($query, $search) {
+                $query->whereHas('users', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                })
+                ->orWhereHas('bidDetails.project', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('recruiter.show-bids', compact('bids', 'project'));
+    }
+
     /**
      * Display the specified resource.
      */

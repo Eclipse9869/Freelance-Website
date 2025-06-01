@@ -21,21 +21,26 @@
         </div>
 
         @forelse ($project as $item)
-            <div class="job-item d-flex align-items-start justify-content-between p-4 border-bottom">
-                <div class="d-flex">
-                    <div class="logo-box border me-4 d-flex justify-content-center align-items-center" style="width:90px; height:90px;">
+            <div class="job-item d-flex align-items-start justify-content-between p-4 border-bottom flex-wrap">
+                <div class="d-flex" style="flex: 1 1 0%; min-width: 0;">
+                    <div class="logo-box border me-4 d-flex justify-content-center align-items-center" style="width:90px; height:90px; flex-shrink: 0;">
                         <strong>LOGO</strong>
                     </div>
-                    <div>
-                        <h4 class="mb-1">{{ $item->name }}</h4>
-                        <p class="mb-0" style="font-size: 18px;">{{ $item->desc }}</p>
+                    <div style="min-width: 0;">
+                        <h4 class="mb-1" style="font-size: 18px; color: #420068;"><strong>{{ $item->name }}</strong></h4>
+                        <p class="mb-1 text-truncate" style="font-size: 18px; max-width: 600px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            {{ $item->desc }}
+                        </p>
+                        <div>
+                            @foreach($item->job as $job)
+                                <span class="badge bg-warning text-dark me-2">{{ $job->name }}</span>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-                <div class="text-end">
-                    <button class="btn btn-lg btn-purple mb-3 px-4">
-                        <a href="{{ route('projects.show', $item->id) }}">View Detail</a>
-                    </button><br>
-                    <button class="btn btn-lg btn-purple px-4">Show Bids</button>
+                <div class="d-flex flex-column text-end" style="min-width: 160px; flex-shrink: 0;">
+                    <a href="{{ route('projects.show', $item->id) }}" class="btn btn-lg btn-purple mb-2 px-4">View Detail</a>
+                    <a href="{{ route('projects.bids', $item->id) }}" class="btn btn-lg btn-purple px-4">Show Bids</a>
                 </div>
             </div>
         @empty

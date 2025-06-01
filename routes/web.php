@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     // Route::get('/add-bid', [BidController::class, 'create'])->name('bid.create');
     Route::get('/bid/create/{project}', [BidController::class, 'create'])->name('bid.create');
     Route::post('/add-bid', [BidController::class, 'store'])->name('bid.store');
+    Route::get('/projects/{project}/bids', [BidController::class, 'showBids'])->name('projects.bids');
 });
 
 require __DIR__.'/auth.php';

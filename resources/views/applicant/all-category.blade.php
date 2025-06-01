@@ -149,12 +149,12 @@
             </div>
 
             <!-- Right: Buttons -->
-            <div class="text-end">
-                <button type="button" class="btn btn-purple px-4 mb-2" data-bs-toggle="modal" data-bs-target="#projectDetailModal{{ $item->id }}">
+            <div class="d-flex flex-column align-items-end gap-2" style="width: 160px;">
+                <button type="button" class="btn btn-purple w-100" data-bs-toggle="modal" data-bs-target="#projectDetailModal{{ $item->id }}">
                     View Detail
-                </button><br>
+                </button>
                 @if (auth()->id() !== $item->users->id)
-                    <a href="{{ route('bid.create', $item->id) }}" class="btn btn-purple mb-2 px-4">Place a Bid</a>
+                    <a href="{{ route('bid.create', $item->id) }}" class="btn btn-purple w-100">Place a Bid</a>
                 @endif
             </div>
         </div>

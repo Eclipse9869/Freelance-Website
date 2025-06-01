@@ -10,7 +10,7 @@ class Bid extends Model
     use HasFactory;
     protected $table = 'bid';
     protected $fillable = ['status', 'cv', 'job_app_letter', 'amount', 'users_id'];
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'users_id');
     }

@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Experience::class, 'users_id');
     }
+
+    public function bids()
+    {
+        return $this->hasMany(Bid::class, 'users_id');
+    }
 }
